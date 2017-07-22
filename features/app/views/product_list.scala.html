@@ -1,0 +1,98 @@
+@import service._
+@(currentPage: Page[(Product, Option[Category])], currentOrderBy: Int, currentFilter: String)
+
+@import b3.vertical.fieldConstructor
+
+    @****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+    controllers.features.routes.ProductFeature.productList(newPage, newOrderBy.map { orderBy =>
+        if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+    }.getOrElse(currentOrderBy), currentFilter)
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(orderBy: Int, title: String) = {
+    <th class="col@orderBy header @if(scala.math.abs(currentOrderBy) == orderBy) @{if(currentOrderBy < 0) "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, Some(orderBy))">@title</a>
+    </th>
+}
+
+    @Option(currentPage.items).filterNot(_.isEmpty).map { products =>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    @header(2, "Nome")
+                    @header(3, "Descricao")
+                    @header(4, "Data")
+                    @header(5, "Imagem")
+                    @header(6, "Categoria")
+                </tr>
+            </thead>
+            <tbody>
+
+                @products.map {
+                    case (product, category) => {
+                        <tr>
+                            <td>
+                                <a href="@controllers.features.routes.ProductFeature.itemDetails(product.id.getOrElse(0))">
+                                    @product.name
+                                </a>
+                            </td>
+                            <td>
+                                @product.description.getOrElse("No Description")
+                            </td>
+                            <td>
+                                @product.publish.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }
+                            </td>
+                            <td>
+                                <img src="">
+                            </td>
+                            <td>
+                                @{category map { _.name } getOrElse ""}
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+
+        <div id="pagination" class="pagination">
+            <ul>
+                @currentPage.prev.map { page =>
+                    <li class="prev">
+                        <a href="@link(page)"> &larr; </a>
+                    </li>
+                }.getOrElse {
+                    <li class="prev disabled">
+                        <a> &larr; </a>
+                    </li>
+                }
+                <li class="current">
+                    <a>De @(currentPage.offset + 1) a @(currentPage.offset + products.size) Total de @currentPage.total</a>
+                </li>
+                @currentPage.next.map { page =>
+                    <li class="next">
+                        <a href="@link(page)"> &rarr; </a>
+                    </li>
+                }.getOrElse {
+                    <li class="next disabled">
+                        <a> &rarr; </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    }.getOrElse {
+
+        <div class="well">
+            <em>Sem conteúdo</em>
+        </div>
+
+    }
+

@@ -1,0 +1,27 @@
+@()(implicit messages: play.api.i18n.Messages)
+@import b3.vertical.fieldConstructor
+
+@*
+@b3.form(controllers.common.routes.Application.formTest) {
+    @b3.email( utils.FormHelper.fooForm("email"), '_label -> "Email", 'placeholder -> "example@mail.com" )
+    @b3.password( utils.FormHelper.fooForm("password"), '_label -> "Password", 'placeholder -> "Password" )
+    @b3.checkbox( utils.FormHelper.fooForm("remember"), '_text -> "Remember me", 'value -> true )
+    @b3.submit('class -> "btn btn-default"){ Sign in }
+    @b3.reset('class -> "btn btn-danger"){ <span class="glyphicon glyphicon-remove"></span> Cancelar }
+
+}
+*@
+
+@b3.form(controllers.features.routes.UserFeature.addUser) {
+
+    @b3.email( utils.FormHelper.signUpForm("email"), '_label -> "Email", 'placeholder -> "exemplo@gmail.com" )
+    @b3.text( utils.FormHelper.signUpForm("name"), '_label -> "Nome", 'placeholder -> "Nome" )
+    @b3.text( utils.FormHelper.signUpForm("cpf"), '_label -> "CPF", 'placeholder -> "CPF" )
+    @b3.text( utils.FormHelper.signUpForm("dateOfBirth"), '_label -> "Data de nascimento", 'placeholder -> "Data de nascimento" )
+    @b3.text( utils.FormHelper.signUpForm("address"), '_label -> "Endereco", 'placeholder -> "Endereco" )
+    @b3.password( utils.FormHelper.signUpForm("password"), '_label -> "Senha", 'placeholder -> "Senha" )
+    @b3.submit('class -> "btn btn-default"){ Entrar }
+    @b3.reset('class -> "btn btn-danger"){ <span class="glyphicon glyphicon-remove"></span> Cancelar }
+
+}
+

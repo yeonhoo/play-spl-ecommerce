@@ -1,0 +1,18 @@
+# Features (Homepage, Product, User, Cart)
+
+# verificar se P_Auth_Product_Static class pode ser trocado por um Trait do mesmo
+# sera que instancia o objeto?
+
+#Home
+GET     /                           controllers.products.Product3.homePage
+
+#Product
+GET     /productlist                controllers.products.Product3.productList(p:Int ?=0, s:Int ?= 2, f ?= "")
+GET     /productlist/:id            controllers.products.Product3.itemDetails(id: Long)
+
+
+
+
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+

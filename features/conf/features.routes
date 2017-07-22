@@ -1,0 +1,24 @@
+#Home
+GET     /                       controllers.features.StaticHomePageFeature.homePage
+GET     /                       controllers.features.DynamicHomePageFeature.homePage
+
+#Product
+GET     /productlist            controllers.features.ProductFeature.productList(p:Int ?=0, s:Int ?= 2, f ?= "")
+GET     /productlist/:id        controllers.features.ProductFeature.itemDetails(id: Long)
+
+#Cart
+GET     /cart                   controllers.features.CartFeature.showCart
+GET     /cart/remove/:id        controllers.features.CartFeature.removeItemFromCart(id:String)
+GET     /cart/add/:id           controllers.features.CartFeature.addItemToCart(id:Long)
+
+#Authentication
+GET     /login                  controllers.features.AuthenticationFeature.login
+GET     /logout                 controllers.features.AuthenticationFeature.logout
+GET     /authenticate           controllers.features.AuthenticationFeature.authenticate
+
+#User
+GET     /signup                 controllers.features.UserFeature.signUp
+POST    /signup                 controllers.features.UserFeature.addUser
+GET     /signup/success         controllers.features.UserFeature.signUpSuccess
+
+GET     /assets/*file           controllers.Assets.versioned(path="/public", file: Asset)

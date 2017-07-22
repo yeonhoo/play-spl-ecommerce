@@ -1,0 +1,30 @@
+@(product: service.Product)(implicit featureList: Seq[String])
+
+@import helper._
+@import b3.vertical.fieldConstructor
+
+
+    <div class="well">
+        <table style="width: 100%">
+            <tr>
+                <td>Nome</td>
+                <td>@product.name</td>
+            </tr>
+            <tr>
+                <td>Descri&ccedil;&atilde;o</td>
+                <td><pre>@product.description</pre></td>
+            </tr>
+        </table>
+        <div>
+            @if(featureList.contains("Cart")) {
+                <a href="@controllers.features.routes.CartFeature.addItemToCart(product.id.getOrElse(0))">
+                    Adicionar ao carrinho
+                </a>
+            }
+        </div>
+        <div>
+            <img src="">
+        </div>
+
+        <hr />
+    </div>

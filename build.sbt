@@ -1,17 +1,20 @@
-Common.appSettings(messagesFilesFrom = Seq("common"))
+//Common.appSettings(messagesFilesFrom = Seq("common"))
 
 scalaVersion := "2.11.8"
 
-lazy val ecommerce = (project in file(".")).enablePlugins(PlayScala).aggregate(common).dependsOn(common)
+//lazy val ecommerce = (project in file(".")).enablePlugins(PlayScala).aggregate(common).dependsOn(common)
 
-lazy val common = (project in file("modules/common")).enablePlugins(PlayScala)
+//lazy val common = (project in file("modules/common")).enablePlugins(PlayScala)
+
+lazy val ecommerce = (project in file(".")).enablePlugins(PlayScala)
 
 
  /*
   * Features
   */
 
-lazy val features = (project in file("features/")).enablePlugins(PlayScala).aggregate(common).dependsOn(common).settings(
+lazy val features = (project in file("features/")).enablePlugins(PlayScala).settings(
+  libraryDependencies ++= Common.commonDependencies,
   scalaVersion := "2.11.8",
   name := "features",
   PlayKeys.devSettings ++=

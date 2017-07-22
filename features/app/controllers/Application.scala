@@ -37,9 +37,7 @@ class CommonFeature @Inject() (
 // test commit
 trait UserFeature extends CommonFeature {
 
-  // pq nao comita?
   // o problema eh que o view precisa levar a request como parametro pq o view precisa de Messages
-  //
   def signUp = Action { implicit request =>
     super.main(Some(
       views.html.sign_up() // mudar
@@ -57,10 +55,6 @@ trait UserFeature extends CommonFeature {
         case (email, name, cpf, dateOfBirth, address, password) =>
 
           println("salvou?")
-          println("commit test")
-          println("commit test")
-          println("commit test")
-          println("commit test")
 
           userService.insert(email, name, cpf, dateOfBirth, address, password)
           // aqui eh so definir o metodo nesse Trait e colocar o route no route file
@@ -159,7 +153,7 @@ trait CartFeature extends CommonFeature {
 
     val cartWithoutEmail = newSession.data.filter(_._1 != "email")
 
-    // digit 이 아닌것을 다 필터해서
+    // filter all except digit
     val cart: List[SessionToCart] = cartWithoutEmail map { item => SessionToCart(item._1 filter (_.isDigit), item._2) } toList
     //val cart = request.session.data.filter{ (cart) => cart._1 != id}.map { item => SessionToCart(item._1, item._2)}.toList
 
